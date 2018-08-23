@@ -1,6 +1,6 @@
 ## Info:
 
-These C programs computes some neighborhood-based similarities between each pair of nodes in a very large sparse graph.
+These C programs compute some neighborhood-based similarities between each pair of nodes in a very large sparse graph.
 
 The cosine similarity between nodes $u$ and $v$ is defined as 
 $$\frac{|\Delta(u) \cap \Delta(v)|}{\sqrt{|\Delta(u)|\cdot |\Delta(v)|}},$$ 
@@ -18,9 +18,10 @@ In practice, the sim.c is quite scalable as it avoids to compute the cosine simi
 
 "sim_nohub.c" consider only neighbors with degree lower than an input threshold. 
 
-"jaccard_opt_nohub.c" combine the two above optimizations.
+"jaccard_opt_nohub.c" combines the two above optimizations.
 
 ## To compile:
+
 type "Make", or type
 - gcc sim.c -O3 -o sim -lm -fopenmp
 - gcc sim_nohub.c -O3 -o sim_nohub -lm -fopenmp
@@ -42,7 +43,6 @@ It will print values in the terminal to plot a histogram with 0.1 bucket-size.
 - a is the input threshold : only similarities higher than this threshold
 - net.txt is the input directed graph "source target" on each line. Node's IDs should be integers, preferably from 0 to n-1. 
 It will print values in the terminal to plot a histogram with 0.1 bucket-size.
-
 
 The programs will be faster if the input graph has small degrees. Indeed, the running time is in $O(\sum_{u\in V} d(u)^2)$. If the program does not scale, because there are too many nodes with a very high degree, then just remove these hubs:
 
@@ -76,6 +76,7 @@ $$f(|\Delta(u)|,|\Delta(v)|, |\Delta(u)\cup \Delta(v)|, |\Delta(u)\cap \Delta(v)
 Computing Adammic-Adar is also possible: https://it.wikipedia.org/wiki/Coefficiente_Adamic/Adar
 
 ## Performance:
+
 Note that the programs are embarrassingly parallel and using k threads will divide the time by k (up to some large k).
 
 On a commodity machine using a single thread and without removing hubs' edges:
@@ -96,6 +97,7 @@ On a commodity machine using a single thread and without removing hubs' edges:
 ### jaccard_opt_nohub.c
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 1000 :
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 100 :
+
 ## Reference:
 
 The program shows that a "smart" brute-force approach is relatively scalable for this problem. The only problem being the RAM: it does not scale if the input graph does not fit in RAM (i.e., if 2 integers for each edge in the graph cannot be stored in RAM).
