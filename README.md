@@ -101,7 +101,10 @@ On a commodity machine using a single thread and without removing hubs' edges:
 On a cluster with 10 threads on https://snap.stanford.edu/data/com-Friendster.html (2G edges):
 
 - sim.c: 8 hours; 546,035,729,830 non-zero similarities
+
 - jaccard_opt.c with a=0.8: 40 minutes; 16,078,688 similarities > 0.8
+- jaccard_opt.c with a=0.5: 1 hour; 32,233,764 similarities > 0.5
+
 - jaccard_opt.c with a=0.8 and dmax=100: 40 minutes; 39,635,595 similarities > 0.8
 
 
