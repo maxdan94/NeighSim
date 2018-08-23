@@ -81,22 +81,23 @@ Note that the programs are embarrassingly parallel and using k threads will divi
 
 On a commodity machine using a single thread and without removing hubs' edges:
 
-### sim.c
+### sim.c:
 - On https://snap.stanford.edu/data/com-Amazon.html (1M edges): 1 second
 - On https://snap.stanford.edu/data/com-Youtube.html (3M edges): 1 minute
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges): 45 minutes
 
-### jaccard_opt.c
+### jaccard_opt.c:
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5: 10 minutes
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.8: 3 minutes
 
-### sim_nohub.c
+### sim_nohub.c:
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a degree threshold of 100: 20 minutes
 
-### jaccard_opt_nohub.c
+### jaccard_opt_nohub.c:
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 100 : 4 minutes
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.8 and a degree threshold of 100 : 2 minutes
 
+### Large graphs:
 On a cluster with 10 threads on https://snap.stanford.edu/data/com-Friendster.html (2G edges):
 
 - sim.c: 8 hours; 546,035,729,830 non-zero similarities
