@@ -115,7 +115,7 @@ Graph compression à la Boldi-Vigna could be a solution: http://law.di.unimi.it/
 
 ## Initial contributors:
 
-Maximilien Danisch 
-August 2018 
-http://bit.ly/danisch 
+Maximilien Danisch  
+August 2018  
+http://bit.ly/danisch  
 maximilien.danisch@gmail.com
