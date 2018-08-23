@@ -16,11 +16,17 @@ In practice, the sim.c is quite scalable as it avoids to compute the cosine simi
 
 "cosine_opt.c" and "jaccard_opt.c" are more scalable. They aim at computing each pair of nodes with similarity higher than a threshold $\alpha$ (input parameter). Using this threshold, computing the similarities between pairs of nodes that have too different degrees is avoided (as these pairs of nodes will have a similarity lower than the threshold).
 
+"sim_nohub.c" consider only neighbors with degree lower than an input threshold. 
+
+"jaccard_opt_nohub.c" combine the two above optimizations.
+
 ## To compile:
 type "Make", or type
 - gcc sim.c -O3 -o sim -lm -fopenmp
+- gcc sim_nohub.c -O3 -o sim_nohub -lm -fopenmp
 - gcc cosine_opt.c -O3 -o cosine_opt -lm -fopenmp
 - gcc jaccard_opt.c -O3 -o jaccard_opt -lm -fopenmp
+- gcc jaccard_opt_nohub.c -O3 -o jaccard_opt_nohub -lm -fopenmp
 - gcc rmhub.c -O3 -o rmhub
 
 ## To execute:
@@ -38,15 +44,28 @@ It will print values in the terminal to plot a histogram with 0.1 bucket-size.
 It will print values in the terminal to plot a histogram with 0.1 bucket-size.
 
 
-The programs will be faster if the input graph has small degrees. Indeed, the running time is in $O(\sum_{u\in V} d(u)^2)$.
-
-If the program does not scale, because there are too many nodes with a very high degree, then just remove these hubs:
+The programs will be faster if the input graph has small degrees. Indeed, the running time is in $O(\sum_{u\in V} d(u)^2)$. If the program does not scale, because there are too many nodes with a very high degree, then just remove these hubs:
 
 ./rmhub max-degree neti.txt neto.txt
-
 - max-degree is the maximum allowed degree. For instance 10,000.
 - neti.txt is the input directed graph: "source target" on each line. node's IDs should be integer, preferably from 0 to n-1.
 - neto.txt is the output directed graph: (with hubs removed).
+
+Or just consider the neighbors with a degree lower than an input threshold:
+
+./sim_nohub p dmax net.txt
+- p is the number of threads to use (nearly optimal degree of parallelism)
+- dmax is the degrre threshold: only common neighbors with degree smaller or equal to dmax will be considered
+- net.txt is the input directed graph "source target" on each line. Node's IDs should be integers, preferably from 0 to n-1. 
+It will print values in the terminal to plot a histogram with 0.1 bucket-size.
+
+./jaccard_opt_nohub p a dmax net.txt
+- p is the number of threads to use (nearly optimal degree of parallelism)
+- a is the input threshold : only similarities higher than this threshold
+- dmax is the degrre threshold: only common neighbors with degree smaller or equal to dmax will be considered
+- net.txt is the input directed graph "source target" on each line. Node's IDs should be integers, preferably from 0 to n-1. 
+It will print values in the terminal to plot a histogram with 0.1 bucket-size.
+
 
 ## Modification:
 
@@ -66,10 +85,17 @@ On a commodity machine using a single thread and without removing hubs' edges:
 - On https://snap.stanford.edu/data/com-Youtube.html (3M edges): 1 minute
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges): 45 minutes
 
-### jaccard.c
-- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a threshold of 0.5: 10 minutes
-- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a threshold of 0.8: 3 minutes
+### jaccard_opt.c
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5: 10 minutes
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.8: 3 minutes
 
+### sim_nohub.c
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a degree threshold of 100:
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a degree threshold of 1000:
+
+### jaccard_opt_nohub.c
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 1000 :
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 100 :
 ## Reference:
 
 The program shows that a "smart" brute-force approach is relatively scalable for this problem. The only problem being the RAM: it does not scale if the input graph does not fit in RAM (i.e., if 2 integers for each edge in the graph cannot be stored in RAM).
