@@ -91,16 +91,23 @@ On a commodity machine using a single thread and without removing hubs' edges:
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.8: 3 minutes
 
 ### sim_nohub.c
-- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a degree threshold of 100:
-- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a degree threshold of 1000:
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a degree threshold of 100: 20 minutes
 
 ### jaccard_opt_nohub.c
-- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 1000 :
-- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 100 :
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 100 : 4 minutes
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.8 and a degree threshold of 100 : 2 minutes
+
+On a cluster with 10 threads on https://snap.stanford.edu/data/com-Friendster.html (2G edges):
+
+- sim.c: 8 hours; 546,035,729,830 non-zero similarities
+- jaccard_opt.c with a=0.8: 40 minutes; 16,078,688 similarities > 0.8
+
+
+
 
 ## Reference:
 
-The program shows that a "smart" brute-force approach is relatively scalable for this problem. The only problem being the RAM: it does not scale if the input graph does not fit in RAM (i.e., if 2 integers for each edge in the graph cannot be stored in RAM).
+The programs show that a "smart" brute-force approach is relatively scalable for this problem. The only problem being the RAM: it does not scale if the input graph does not fit in RAM (i.e., if 2 integers for each edge in the graph cannot be stored in RAM).
  
 Graph compression à la Boldi-Vigna could be a solution: http://law.di.unimi.it/datasets.php
 
