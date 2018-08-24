@@ -81,32 +81,43 @@ Note that the programs are embarrassingly parallel and using k threads will divi
 
 On a commodity machine using a single thread and without removing hubs' edges:
 
-### sim.c
+### sim.c:
 - On https://snap.stanford.edu/data/com-Amazon.html (1M edges): 1 second
 - On https://snap.stanford.edu/data/com-Youtube.html (3M edges): 1 minute
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges): 45 minutes
 
-### jaccard_opt.c
+### jaccard_opt.c:
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5: 10 minutes
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.8: 3 minutes
 
-### sim_nohub.c
-- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a degree threshold of 100:
-- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a degree threshold of 1000:
+### sim_nohub.c:
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a degree threshold of 100: 20 minutes
 
-### jaccard_opt_nohub.c
-- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 1000 :
-- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 100 :
+### jaccard_opt_nohub.c:
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 100 : 4 minutes
+- On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.8 and a degree threshold of 100 : 2 minutes
+
+### Large graphs:
+On a cluster with 10 threads on https://snap.stanford.edu/data/com-Friendster.html (2G edges):
+
+- sim.c: 8 hours; 546,035,729,830 non-zero similarities
+
+- jaccard_opt.c with a=0.2: 2 hour; 107,143,096 similarities greater than 0.2
+- jaccard_opt.c with a=0.5: 1 hour; 32,233,764 similarities greater than 0.5
+- jaccard_opt.c with a=0.8: 40 minutes; 16,078,688 similarities greater than 0.8
+
+- jaccard_opt_nohub.c with a=0.8 and dmax=100: 40 minutes; 39,635,595 similarities greater than 0.8
+
 
 ## Reference:
 
-The program shows that a "smart" brute-force approach is relatively scalable for this problem. The only problem being the RAM: it does not scale if the input graph does not fit in RAM (i.e., if 2 integers for each edge in the graph cannot be stored in RAM).
- 
-Graph compression à la Boldi-Vigna could be a solution: http://law.di.unimi.it/datasets.php
+The programs show that a "smart" brute-force approach is relatively scalable for this problem.
+
+A bottleneck is the RAM: it does not scale if the input graph does not fit in RAM (i.e., if 2 integers for each edge in the graph cannot be stored in RAM). Graph compression à la Boldi-Vigna could be a solution: http://law.di.unimi.it/datasets.php
 
 ## Initial contributors:
 
-Maximilien Danisch 
-August 2018 
-http://bit.ly/danisch 
+Maximilien Danisch  
+August 2018  
+http://bit.ly/danisch  
 maximilien.danisch@gmail.com
