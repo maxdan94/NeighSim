@@ -99,19 +99,22 @@ On a commodity machine using a single thread and without removing hubs' edges:
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 100: 2 minutes
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.8 and a degree threshold of 100 : 2 minutes
 
-#### Larger graphs:
+### Larger graphs:
 On a cluster with 10 threads on https://snap.stanford.edu/data/com-Friendster.html (2G edges):
 
-- sim.c: 8 hours; 546,035,729,830 non-zero similarities
+sim.c: 8 hours; 546,035,729,830 non-zero similarities
 
-- sim_nohub.c with degree threshold of 10: 20 minutes; 208,516,198 non-zero similarities
-- sim_nohub.c with degree threshold of 2: 2 minutes; 5,752,939 non-zero similarities
+#### sim_nohub.c:
+- with degree threshold of 100: 35 minutes; 20,009,818,641 non-zero similarities
+- with degree threshold of 10: 20 minutes; 208,516,198 non-zero similarities
+- with degree threshold of 2: 2 minutes; 5,752,939 non-zero similarities
 
-- jaccard_opt.c with a=0.2: 2 hour; 107,143,096 similarities greater than 0.2
-- jaccard_opt.c with a=0.5: 1 hour; 32,233,764 similarities greater than 0.5
-- jaccard_opt.c with a=0.8: 40 minutes; 16,078,688 similarities greater than 0.8
+#### jaccard_opt.c:
+- with a=0.2: 2 hour; 107,143,096 similarities greater than 0.2
+- with a=0.5: 1 hour; 32,233,764 similarities greater than 0.5
+- with a=0.8: 40 minutes; 16,078,688 similarities greater than 0.8
 
-- jaccard_opt_nohub.c with a=0.8 and dmax=100: 
+#### jaccard_opt_nohub.c:
 
 
 ## Reference:
