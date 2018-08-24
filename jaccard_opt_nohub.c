@@ -30,6 +30,7 @@ typedef struct {
 	unsigned *map;
 
 	//neighborhoods:
+	unsigned *d0; //original degrees
 	unsigned *d; //degrees
 	unsigned *cd; //cumulative degrees: (start with 0) length=dim+1
 	unsigned *adj; //list of neighbors
@@ -128,51 +129,50 @@ void relabel(graph *g) {
 }
 
 
+
 //Building the special graph structure
 void mkgraph(graph *g,unsigned dmax){
 	unsigned i,s,t,max,tmp;
-	unsigned *d=calloc(g->n,sizeof(unsigned));
 
+	g->d0=calloc(g->n,sizeof(unsigned));
 	g->d=calloc(g->n,sizeof(unsigned));
 	g->cd=malloc((g->n+1)*sizeof(unsigned));
 	g->adj=malloc(2*g->e*sizeof(unsigned));
 	for (i=0;i<g->e;i++) {
-		d[g->edges[i].s]++;
-		d[g->edges[i].t]++;
+		g->d0[g->edges[i].s]++;
+		g->d0[g->edges[i].t]++;
 	}
 	max=0;
 	for (i=0;i<g->n;i++) {
-		max=(d[i]>max)?d[i]:max;
+		max=(g->d0[i]>max)?g->d0[i]:max;
 	}
 	printf("Maximum degree: %u\n",max);
 	for (i=0;i<g->e;i++) {
-		if (d[g->edges[i].t]<=dmax){
+		if (g->d0[g->edges[i].t]<=dmax){
 			g->d[g->edges[i].s]++;
 		}
-		if (d[g->edges[i].s]<=dmax){
+		if (g->d0[g->edges[i].s]<=dmax){
 			g->d[g->edges[i].t]++;
 		}
 	}
 	g->cd[0]=0;
 	for (i=1;i<g->n+1;i++) {
-		g->cd[i]=g->cd[i-1]+d[i-1];
+		g->cd[i]=g->cd[i-1]+g->d0[i-1];
 	}
-	bzero(d,(g->n)*sizeof(unsigned));
+	bzero(g->d0,(g->n)*sizeof(unsigned));
 	for (i=0;i<g->e;i++) {
 		s=g->edges[i].s;
 		t=g->edges[i].t;
-		g->adj[g->cd[s] + d[s]++ ]=t;
-		g->adj[g->cd[t] + d[t]++ ]=s;
+		g->adj[g->cd[s] + g->d0[s]++ ]=t;
+		g->adj[g->cd[t] + g->d0[t]++ ]=s;
 	}
 
 	for (i=0;i<g->n;i++) {
-		qsort(g->adj+g->cd[i],d[i],sizeof(unsigned),cmpfunc);
-		//if (d[i]>0) printf("%u %u\n",g->d[g->adj[g->cd[i]]],g->d[g->adj[g->cd[i+1]-1]]);
+		qsort(g->adj+g->cd[i],g->d0[i],sizeof(unsigned),cmpfunc);
 	}
 
-	free(d);
-
 }
+
 
 void freegraph(graph *g){
 	free(g->edges);
@@ -215,10 +215,10 @@ unsigned long long* cosine(graph *g,double a,unsigned dmax){
 		n=0;
 		for (i=g->cd[u];i<g->cd[u+1];i++){
 			v=g->adj[i];
-			if (g->d[v]==0)
+			if (g->d0[v]==0)///////
 				continue;
-			if (g->d[v]>dmax)
-				break;
+			if (g->d0[v]>dmax)
+				continue;
 			for (j=binsearch(g->adj,g->cd[v],g->cd[v+1]-1,u);j<g->cd[v+1];j++){
 				w=g->adj[j];
 				if (((double)g->d[u])/((double)(g->d[w]))<a){
