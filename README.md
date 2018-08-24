@@ -99,7 +99,7 @@ On a commodity machine using a single thread and without removing hubs' edges:
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.5 and a degree threshold of 100: 2 minutes
 - On https://snap.stanford.edu/data/com-Orkut.html (117M edges) with a similarity threshold of 0.8 and a degree threshold of 100 : 2 minutes
 
-### Large graphs:
+#### Larger graphs:
 On a cluster with 10 threads on https://snap.stanford.edu/data/com-Friendster.html (2G edges):
 
 - sim.c: 8 hours; 546,035,729,830 non-zero similarities
