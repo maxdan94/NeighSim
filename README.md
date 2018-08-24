@@ -111,9 +111,9 @@ On a cluster with 10 threads on https://snap.stanford.edu/data/com-Friendster.ht
 
 ## Reference:
 
-The programs show that a "smart" brute-force approach is relatively scalable for this problem. The only problem being the RAM: it does not scale if the input graph does not fit in RAM (i.e., if 2 integers for each edge in the graph cannot be stored in RAM).
- 
-Graph compression à la Boldi-Vigna could be a solution: http://law.di.unimi.it/datasets.php
+The programs show that a "smart" brute-force approach is relatively scalable for this problem.
+
+A bottleneck is the RAM: it does not scale if the input graph does not fit in RAM (i.e., if 2 integers for each edge in the graph cannot be stored in RAM). Graph compression à la Boldi-Vigna could be a solution: http://law.di.unimi.it/datasets.php
 
 ## Initial contributors:
 
