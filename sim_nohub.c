@@ -217,7 +217,7 @@ int main(int argc,char** argv){
 	t0=t1;
 
 	omp_set_num_threads(atoi(argv[1]));
-	printf("Only taking into account common neighbors with degree > %s\n",argv[2]);
+	printf("Only taking into account common neighbors with degree < %s\n",argv[2]);
 	dmax=atoi(argv[2]);
 
 	printf("Reading edgelist from file %s\n",argv[3]);
