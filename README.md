@@ -105,6 +105,7 @@ On a cluster with 10 threads on https://snap.stanford.edu/data/com-Friendster.ht
 sim.c: 8 hours; 546,035,729,830 non-zero similarities
 
 #### sim_nohub.c:
+- with degree threshold of 1000: 5 hours; 337,131,373,817 non-zero similarities
 - with degree threshold of 100: 35 minutes; 20,009,818,641 non-zero similarities
 - with degree threshold of 10: 20 minutes; 208,516,198 non-zero similarities
 - with degree threshold of 2: 2 minutes; 5,752,939 non-zero similarities
@@ -115,7 +116,7 @@ sim.c: 8 hours; 546,035,729,830 non-zero similarities
 - with a=0.8: 40 minutes; 16,078,688 similarities greater than 0.8
 
 #### jaccard_opt_nohub.c:
-
+- with a=0.2 and dmax=100: 30 minutes; 74,763,078 similarities greater than 0.2
 
 ## Reference:
 
