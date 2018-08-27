@@ -117,6 +117,8 @@ sim.c: 8 hours; 546,035,729,830 non-zero similarities
 
 #### jaccard_opt_nohub.c:
 - with a=0.2 and dmax=100: 30 minutes; 74,763,078 similarities greater than 0.2
+- with a=0.5 and dmax=100: 25 minutes; 19,886,555 similarities greater than 0.5
+- with a=0.8 and dmax=100: 25 minutes; 8,956,029 similarities greater than 0.8
 
 ## Note:
 
