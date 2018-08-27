@@ -102,7 +102,8 @@ On a commodity machine using a single thread and without removing hubs' edges:
 ### Larger graphs:
 On a cluster with 10 threads on https://snap.stanford.edu/data/com-Friendster.html (2G edges):
 
-sim.c: 8 hours; 546,035,729,830 non-zero similarities
+#### sim.c
+- 8 hours; 546,035,729,830 non-zero similarities
 
 #### sim_nohub.c:
 - with degree threshold of 1000: 5 hours; 337,131,373,817 non-zero similarities
