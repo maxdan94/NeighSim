@@ -118,7 +118,7 @@ sim.c: 8 hours; 546,035,729,830 non-zero similarities
 #### jaccard_opt_nohub.c:
 - with a=0.2 and dmax=100: 30 minutes; 74,763,078 similarities greater than 0.2
 
-## Reference:
+## Note:
 
 The programs show that a "smart" brute-force approach is relatively scalable for this problem.
 
