@@ -77,7 +77,7 @@ Computing Adammic-Adar is also possible: https://it.wikipedia.org/wiki/Coefficie
 
 Note that the programs are embarrassingly parallel and using k threads will divide the time by k (up to some large k).
 
-On a commodity machine using a single thread and without removing hubs' edges:
+On a commodity machine using a single thread:
 
 ### sim.c:
 - On https://snap.stanford.edu/data/com-Amazon.html (1M edges): 1 second
