@@ -69,8 +69,6 @@ It will print values in the terminal to plot a histogram with 0.1 bucket-size.
 
 ## Modification:
 
-The code can be modified to obtain any other wished output, such as each pair of nodes with the similarity larger than a threshold (the output consisting of all pairs of nodes with nonzero similarity might be too large and not so useful).
-
 The code can be modified to compute any similarity between nodes $u$ and $v$ of the form 
 $$f(|\Delta(u)|,|\Delta(v)|, |\Delta(u)\cup \Delta(v)|, |\Delta(u)\cap \Delta(v)|).$$ 
 Computing Adammic-Adar is also possible: https://it.wikipedia.org/wiki/Coefficiente_Adamic/Adar
